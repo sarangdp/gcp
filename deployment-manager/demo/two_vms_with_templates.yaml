@@ -1,0 +1,16 @@
+imports:
+- path: vm-template.py
+- path: vm-template-2.py
+
+##vms names will be taken from the template not frm here.
+resources:
+- name: vm-1
+  type: vm-template.py
+- name: vm-2
+  type: vm-template-2.py
+- name: a-new-network
+  type: compute.v1.network
+  properties:
+    routingConfig:
+      routingMode: REGIONAL
+    autoCreateSubnetworks: true
