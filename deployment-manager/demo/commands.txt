@@ -1,0 +1,5 @@
+##create a deployment
+gcloud deployment-manager deployments create deployment-two-vms --config 1_two-vms.yaml
+
+## list the resources under deployment 
+gcloud deployment-manager resources list --deployment deployment-two-vms
