@@ -1,0 +1,9 @@
+imports:
+- path: compute-engine-var.py
+- path: vm-template-var.py
+- path: network-template-var.py
+- path: firewall-template-var.py
+
+resources:
+- name: compute-engine-setup
+  type: compute-engine-var.py
