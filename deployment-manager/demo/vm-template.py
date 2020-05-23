@@ -3,7 +3,7 @@ COMPUTE_URL_BASE= 'https://www.googleapis.com/compute/v1/'
 ## The template must define a method called GenerateConfig(context) or generate_config(context). 
 ## If you use both method names in the same template, the generate_config() method will take precedence.
 
-def GenerateConfig(unused_context):
+def GenerateConfig(context):
     """Creates the first virtual machine"""
 
     resources = [{
