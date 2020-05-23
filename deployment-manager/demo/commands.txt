@@ -3,3 +3,30 @@ gcloud deployment-manager deployments create deployment-two-vms --config 1_two-v
 
 ## list the resources under deployment 
 gcloud deployment-manager resources list --deployment deployment-two-vms
+
+##create delployment with muliptle files
+gcloud deployment-manager deployments create deployments-with-multiple-templates --config=config-with-many-templates.yaml
+
+##describe the deployment
+gcloud deployment-manager deployments describe deployments-with-multiple-templates
+------------------------------------------output----------------------------------------------------
+fingerprint: hUCOGYt0u2b1JJ8tys-tog==
+id: '8970846421773484140'
+insertTime: '2020-05-23T08:17:23.966-07:00'
+manifest: manifest-1590247044005
+name: deployments-with-multiple-templates
+operation:
+  endTime: '2020-05-23T08:18:57.992-07:00'
+  name: operation-1590247043880-5a6523e27d5e9-b38bcd75-a777059b
+  operationType: insert
+  progress: 100
+  startTime: '2020-05-23T08:17:24.164-07:00'
+  status: DONE
+  user: sarangdp@gmail.com
+NAME             TYPE                 STATE      INTENT
+a-firewall-rule  compute.v1.firewall  COMPLETED
+a-new-network    compute.v1.network   COMPLETED
+the-first-vm     compute.v1.instance  COMPLETED
+the-second-vm    compute.v1.instance  COMPLETED
+------------------------------------------output----------------------------------------------------
+
