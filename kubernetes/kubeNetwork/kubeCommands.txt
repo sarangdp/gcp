@@ -1,0 +1,28 @@
+##Create cluster on GKE
+gcloud container clusters create mycluster --zone=us-central1-a
+
+##See all the nodes 
+kubectl get nodes
+
+##Create deployment
+kubectl apply -f kubernetes/demo/ping-deploy.yaml
+
+##See alll the pod with their IPs and node details
+kubectl get pods -o wide
+
+NAME                        READY   STATUS    RESTARTS   AGE   IP          NODE                                       NOMINATED NODE   READINESS GATES
+pingtest-6bcdfcdc5b-59pjk   1/1     Running   0          12m   10.*.3.*   gke-mycluster-default-pool-0b7b5363-ttk0   <none>           <none>
+pingtest-6bcdfcdc5b-q9rvp   1/1     Running   0          12m   10.*.2.*   gke-mycluster-default-pool-0b7b5363-ttk0   <none>           <none>
+pingtest-6bcdfcdc5b-zkjsb   1/1     Running   0          12m   10.*.1.*   gke-mycluster-default-pool-0b7b5363-hc8n   <none>           <none>
+  
+## connect to any one of the pods using its name
+kubectl exec -it pingtest-6bcdfcdc5b-59pjk bash
+root@pingtest-6bcdfcdc5b-59pjk:/# pwd
+/
+
+##install ping utilities
+apt-get update
+apt-get install iputils-ping curl dnsutils iproute2 -y
+
+##Ping other pods using their Ips and check the connection
+ping -c 3 10.20.2.4

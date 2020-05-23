@@ -1,0 +1,65 @@
+## Default storage class commands
+
+(cloud-guru-sarang)$ kubectl apply -f mysql-deployment.yaml
+
+> service/wordpress-mysql created
+> deployment.apps/wordpress-mysql unchanged
+> persistentvolumeclaim/mysql-pv-claim unchanged
+
+(cloud-guru-sarang)$ kubectl get pvc
+
+NAME             STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   AGE
+mysql-pv-claim   Bound    pvc-c13e5490-9916-11ea-9e19-42010a8000f1   20Gi       RWO            standard       62s
+
+(cloud-guru-sarang)$ kubectl get pv
+NAME                                       CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM                    STORAGECLASS   REASON   AGE
+pvc-c13e5490-9916-11ea-9e19-42010a8000f1   20Gi       RWO            Delete           Bound    default/mysql-pv-claim   standard                79s
+
+
+sarangdp@cloudshell:~/kubernetes/demo/storage (cloud-guru-sarang)$ kubectl describe pvc mysql-pv-claim
+Name:          mysql-pv-claim
+Namespace:     default
+StorageClass:  standard
+Status:        Bound
+Volume:        pvc-c13e5490-9916-11ea-9e19-42010a8000f1
+Labels:        app=wordpress
+Annotations:   pv.kubernetes.io/bind-completed: yes
+               pv.kubernetes.io/bound-by-controller: yes
+               volume.beta.kubernetes.io/storage-provisioner: kubernetes.io/gce-pd
+Finalizers:    [kubernetes.io/pvc-protection]
+Capacity:      20Gi
+Access Modes:  RWO
+VolumeMode:    Filesystem
+Mounted By:    wordpress-mysql-66594fb556-cmw6l
+Events:
+  Type    Reason                 Age   From                         Message
+  ----    ------                 ----  ----                         -------
+  Normal  ProvisioningSucceeded  16m   persistentvolume-controller  Successfully provisioned volume pvc-c13e5490-9916-11ea-9e19-42010a8000f1 using kubernetes.io/gce-pd
+  
+sarangdp@cloudshell:~/kubernetes/demo/storage (cloud-guru-sarang)$ kubectl describe pv pvc-c13e5490-9916-11ea-9e19-42010a8000f1
+Name:              pvc-c13e5490-9916-11ea-9e19-42010a8000f1
+Labels:            failure-domain.beta.kubernetes.io/region=us-central1
+                   failure-domain.beta.kubernetes.io/zone=us-central1-a
+Annotations:       kubernetes.io/createdby: gce-pd-dynamic-provisioner
+                   pv.kubernetes.io/bound-by-controller: yes
+                   pv.kubernetes.io/provisioned-by: kubernetes.io/gce-pd
+Finalizers:        [kubernetes.io/pv-protection]
+StorageClass:      standard
+Status:            Bound
+Claim:             default/mysql-pv-claim
+Reclaim Policy:    Delete
+Access Modes:      RWO
+VolumeMode:        Filesystem
+Capacity:          20Gi
+Node Affinity:
+  Required Terms:
+    Term 0:        failure-domain.beta.kubernetes.io/zone in [us-central1-a]
+                   failure-domain.beta.kubernetes.io/region in [us-central1]
+Message:
+Source:
+    Type:       GCEPersistentDisk (a Persistent Disk resource in Google Compute Engine)
+    PDName:     gke-mycluster-2f6cb274-pvc-c13e5490-9916-11ea-9e19-42010a8000f1
+    FSType:     ext4
+    Partition:  0
+    ReadOnly:   false
+Events:         <none>
