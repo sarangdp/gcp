@@ -1,3 +1,5 @@
+from .container_helper import GenerateManifest
+
 COMPUTE_URL_BASE = 'https://www.googleapis.com/compute/v1/'
 
 def ZonalComputeUrl(project, zone, collection, name):
@@ -24,7 +26,7 @@ def GenerateConfig(context):
         'metadata': {
             'items': [{
                 'key': 'gce-container-declaration',
-                'value': GenerateConfig(context)
+                'value': GenerateManifest(context)
             }]
         },
         'disk': [{
