@@ -26,3 +26,7 @@ apt-get install iputils-ping curl dnsutils iproute2 -y
 
 ##Ping other pods using their Ips and check the connection
 ping -c 3 10.20.2.4
+
+
+## to create secret
+kubectl create secret generic mysql-pass --from-literal=password=Password123
